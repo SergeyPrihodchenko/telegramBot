@@ -26,7 +26,20 @@ bot.on('text', async msg => {
         hash = 'Enter your password!';
     } else {
         if (hash == '/start') {
-            hash = 'Добро пожаловать!'
+            const keyboard = [
+                [
+                    { text: 'Кнопка 1', callback_data: 'button_1' },
+                    { text: 'Кнопка 2', callback_data: 'button_2' }
+                ],
+                [
+                    { text: 'Кнопка 3', callback_data: 'button_3' }
+                ]
+            ];
+            bot.sendMessage(msg.chat.id, 'Выберите кнопку:', {
+                reply_markup: {
+                    inline_keyboard: keyboard
+                }
+            });
         } else {
             hash = new CryptoController(hash).hash();
         }
