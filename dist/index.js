@@ -1,6 +1,6 @@
 import TelegramBot from "node-telegram-bot-api";
 import { config } from 'dotenv';
-import CryptoController from "./controllers/Crypto";
+import CryptoController from "./controllers/CryptoController.js";
 config();
 const tokenBot = process.env['API_KEY_BOT'];
 if (typeof tokenBot !== 'string') {
@@ -17,20 +17,7 @@ bot.on('text', async (msg) => {
     }
     else {
         if (hash == '/start') {
-            const keyboard = [
-                [
-                    { text: 'Кнопка 1', callback_data: 'button_1' },
-                    { text: 'Кнопка 2', callback_data: 'button_2' }
-                ],
-                [
-                    { text: 'Кнопка 3', callback_data: 'button_3' }
-                ]
-            ];
-            bot.sendMessage(msg.chat.id, 'Выберите кнопку:', {
-                reply_markup: {
-                    inline_keyboard: keyboard
-                }
-            });
+            hash = 'HI!';
         }
         else {
             hash = new CryptoController(hash).hash();
