@@ -1,6 +1,6 @@
 import TelegramBot from "node-telegram-bot-api";
 import { config } from 'dotenv';
-import crypto from 'crypto';
+import CryptoController from "./controllers/Crypto";
 config();
 const tokenBot = process.env['API_KEY_BOT'];
 if (typeof tokenBot !== 'string') {
@@ -20,7 +20,7 @@ bot.on('text', async (msg) => {
             hash = 'Добро пожаловать!';
         }
         else {
-            hash = crypto.createHash('md5').update(hash).digest('hex');
+            hash = new CryptoController(hash).hash();
         }
     }
     await bot.sendMessage(msg.chat.id, hash);

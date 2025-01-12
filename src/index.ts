@@ -1,7 +1,7 @@
 import TelegramBot from "node-telegram-bot-api";
 import { config } from 'dotenv';
 import { Dotnet } from "./types/types";
-import crypto from 'crypto';
+import CryptoController from "./controllers/Crypto";
 
 config();
 
@@ -28,7 +28,7 @@ bot.on('text', async msg => {
         if (hash == '/start') {
             hash = 'Добро пожаловать!'
         } else {
-            hash = crypto.createHash('md5').update(hash).digest('hex');
+            hash = new CryptoController(hash).hash();
         }
     }
 
